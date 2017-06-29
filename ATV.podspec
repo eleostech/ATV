@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.author       = { "Phil Calvin" => "pnc1138@gmail.com" }
   s.source       = { :git => "https://github.com/pnc/ATV.git", :branch => "master" }
 
-  s.platform     = :ios, '4.3'
+  s.platform     = :ios, '9.0'
   s.framework  = 'CoreData'
   s.requires_arc = true
 
