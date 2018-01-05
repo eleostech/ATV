@@ -57,6 +57,15 @@ static const CGFloat ATVEpsilonFooterHeight = 0.001;
   // tried to be smart. Instead of breaking API, this behavior is opt-out.
   // It's on by default until a future version.
   self.heightCompatibilityMode = YES;
+
+  // iOS 11 has changed the defaults for these values to be
+  // UITableViewAutomaticDimension, which causes headers and footers
+  // to take up height and show a background even when they have no content.
+  // Since ATV is all about opt-in for the newer automatic sizing things, disable
+  // it by default to avoid this regression.
+  self.estimatedRowHeight = 0;
+  self.estimatedSectionHeaderHeight = 0;
+  self.estimatedSectionFooterHeight = 0;
 }
 
 - (void) addSection:(ATVTableSection*)section {
