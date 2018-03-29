@@ -267,12 +267,16 @@ static const CGFloat ATVEpsilonFooterHeight = 0.001;
 }
 
 - (NSIndexPath*) tableView:(UITableView*)tableView willSelectRowAtIndexPath:(NSIndexPath*)indexPath {
-  ATVTableSection* tableSection = [self.sections objectAtIndex:indexPath.section];
-  NSUInteger index = [tableSection willSelectRowAtIndex:indexPath.row];
-  if (NSNotFound == index) {
+  if (self.sections.count == 0 ){
     return nil;
   } else {
-    return [NSIndexPath indexPathForRow:index inSection:indexPath.section];
+      ATVTableSection* tableSection = [self.sections objectAtIndex:indexPath.section];
+      NSUInteger index = [tableSection willSelectRowAtIndex:indexPath.row];
+      if (NSNotFound == index) {
+          return nil;
+      } else {
+          return [NSIndexPath indexPathForRow:index inSection:indexPath.section];
+      }
   }
 }
 
