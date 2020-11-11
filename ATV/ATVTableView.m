@@ -201,7 +201,10 @@ static const CGFloat ATVEpsilonFooterHeight = 0.001;
 
 - (CGFloat) tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {
   ATVTableSection* tableSection = [self.sections objectAtIndex:indexPath.section];
-  return [tableSection heightForRowAtIndex:indexPath.row];
+  CGFloat height = [tableSection heightForRowAtIndex:indexPath.row];
+  NSAssert(isfinite(height), @"Infinite height for %@ row %@", tableSection, indexPath);
+  NSAssert(CGFLOAT_MAX != height, @"CGFLOAT_MAX height for %@ row %@. This can cause crashes during layout, such as an exception resulting from a CALayer with a width or height of NaN.", tableSection, indexPath);
+  return height;
 }
 
 - (CGFloat) tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section {
@@ -216,7 +219,10 @@ static const CGFloat ATVEpsilonFooterHeight = 0.001;
       return 0.0;
     }
   } else {
-    return [tableSection headerHeight];
+    CGFloat height = [tableSection headerHeight];
+    NSAssert(isfinite(height), @"Infinite height for header of section %@", tableSection);
+    NSAssert(CGFLOAT_MAX != height, @"CGFLOAT_MAX height for header of section %@. This can cause crashes during layout, such as an exception resulting from a CALayer with a width or height of NaN.", tableSection);
+    return height;
   }
 }
 
@@ -234,7 +240,10 @@ static const CGFloat ATVEpsilonFooterHeight = 0.001;
       return 0.0;
     }
   } else {
-    return [tableSection footerHeight];
+    CGFloat height = [tableSection footerHeight];
+    NSAssert(isfinite(height), @"Infinite footer for header of section %@", tableSection);
+    NSAssert(CGFLOAT_MAX != height, @"CGFLOAT_MAX height for footer of section %@. This can cause crashes during layout, such as an exception resulting from a CALayer with a width or height of NaN.", tableSection);
+    return height;
   }
 }
 
